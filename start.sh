@@ -51,6 +51,13 @@ ls -lh "$MODELS/unet/wan2.2/"*.safetensors 2>/dev/null | head -4 || echo "WARNIN
 ls -lh "$MODELS/clip/"*.safetensors 2>/dev/null | head -2 || echo "WARNING: No CLIP!"
 ls -lh "$MODELS/vae/"*.safetensors 2>/dev/null | head -2 || echo "WARNING: No VAE!"
 
+echo "=== LoRA folders on volume ==="
+ls "$MODELS/loras/" 2>/dev/null || echo "WARNING: loras dir missing!"
+echo "--- new2026/ ---"
+ls "$MODELS/loras/new2026/" 2>/dev/null || echo "MISSING: new2026/ not on volume — copy LoRAs from old pod!"
+echo "--- SVI PRO ---"
+ls "$MODELS/loras/wan2.2/"*SVI* 2>/dev/null || echo "MISSING: SVI PRO LoRAs not on volume!"
+
 # ── Start ComfyUI ─────────────────────────────────────────────────────────────
 echo "=== Starting ComfyUI ==="
 
