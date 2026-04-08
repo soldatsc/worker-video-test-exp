@@ -405,7 +405,7 @@
   },
   "365": {
     "inputs": {
-      "lora_name": "loras/wan2.2/SVI_v2_PRO_Wan2.2-I2V-A14B_HIGH_lora_rank_128_fp16.safetensors",
+      "lora_name": "wan2.2/SVI_v2_PRO_Wan2.2-I2V-A14B_HIGH_lora_rank_128_fp16.safetensors",
       "strength_model": 0.45,
       "model": [
         "5",
@@ -419,7 +419,7 @@
   },
   "368": {
     "inputs": {
-      "lora_name": "loras/wan2.2/SVI_v2_PRO_Wan2.2-I2V-A14B_LOW_lora_rank_128_fp16.safetensors",
+      "lora_name": "wan2.2/SVI_v2_PRO_Wan2.2-I2V-A14B_LOW_lora_rank_128_fp16.safetensors",
       "strength_model": 0.51,
       "model": [
         "6",
