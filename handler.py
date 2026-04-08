@@ -191,8 +191,14 @@ def build_lora_manager_value(loras: list[dict]) -> dict:
         strength_str = str(lora.get("strength", 1.0))
         clip_str = str(lora.get("clip_strength", lora.get("strength", 1.0)))
         # Use absolute path as name — if cache lookup fails, fallback returns this value
-        # directly to safetensors.safe_open, which needs an absolute path anyway
-        abs_name = f"{LORAS_ROOT}/{name}.safetensors" if not name.startswith("/") else name
+        # directly to safetensors.safe_open, which needs an absolute path anyway.
+        # Don't add .safetensors if name already has it (action LoRAs include extension).
+        if name.startswith("/"):
+            abs_name = name
+        elif name.endswith(".safetensors"):
+            abs_name = f"{LORAS_ROOT}/{name}"
+        else:
+            abs_name = f"{LORAS_ROOT}/{name}.safetensors"
         items.append({
             "name": abs_name,
             "strength": strength_str,
