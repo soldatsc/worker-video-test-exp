@@ -172,21 +172,29 @@ def stitch_videos(video_paths: list[str], fps: int) -> str:
     return output_path
 
 
+LORAS_ROOT = "/comfyui/models/loras"
+
+
 def build_lora_manager_value(loras: list[dict]) -> dict:
     """
     Convert API lora list to comfyui-lora-manager __value__ format.
-    Input:  [{"name": "new2026/Instareal_high", "strength": 0.90, "clip_strength": 0.90}]
+    Input:  [{"name": "new2026/Instareal_high", "strength": 0.90}]
     Output: {"__value__": [...]}
+
+    LoRA Manager resolves lora["name"] via get_lora_info_absolute() which looks up the
+    scanner cache by file_name. If not found in cache, it returns the name as-is (fallback).
+    We use the absolute path as the name so the fallback IS a valid loadable path.
     """
     items = []
     for lora in loras:
         name = lora["name"]
         strength_str = str(lora.get("strength", 1.0))
         clip_str = str(lora.get("clip_strength", lora.get("strength", 1.0)))
-        # LoRA Manager looks up file_name in cache — cache stores relative path WITH .safetensors
-        lookup_name = name if name.endswith(".safetensors") else f"{name}.safetensors"
+        # Use absolute path as name — if cache lookup fails, fallback returns this value
+        # directly to safetensors.safe_open, which needs an absolute path anyway
+        abs_name = f"{LORAS_ROOT}/{name}.safetensors" if not name.startswith("/") else name
         items.append({
-            "name": lookup_name,
+            "name": abs_name,
             "strength": strength_str,
             "active": lora.get("active", True),
             "expanded": False,
