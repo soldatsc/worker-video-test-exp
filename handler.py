@@ -178,17 +178,22 @@ def build_lora_manager_value(loras: list[dict]) -> dict:
     Input:  [{"name": "new2026/Instareal_high", "strength": 0.90, "clip_strength": 0.90}]
     Output: {"__value__": [...]}
     """
+    LORAS_ROOT = "/comfyui/models/loras"
     items = []
     for lora in loras:
+        name = lora["name"]
         strength_str = str(lora.get("strength", 1.0))
         clip_str = str(lora.get("clip_strength", lora.get("strength", 1.0)))
+        # LoRA Manager resolves entry["absolute_path"] directly — must be full path with extension
+        abs_path = f"{LORAS_ROOT}/{name}.safetensors"
         items.append({
-            "name": lora["name"],
+            "name": name,
             "strength": strength_str,
             "active": lora.get("active", True),
             "expanded": False,
             "clipStrength": clip_str,
             "locked": False,
+            "absolute_path": abs_path,
         })
     return {"__value__": items}
 
