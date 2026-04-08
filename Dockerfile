@@ -40,11 +40,9 @@ RUN cd /comfyui/custom_nodes/ComfyUI-KJNodes && \
     pip3 install --no-cache-dir -r requirements.txt || true
 
 # comfyui-lora-manager — provides Lora Loader (LoraManager) / TriggerWord Toggle nodes
-# Installed from volume symlink at runtime if not present (see start.sh)
 RUN cd /comfyui/custom_nodes && \
-    git clone https://github.com/badjeff/comfyui-lora-manager || \
-    git clone https://github.com/LyazS/comfyui-lora-manager || \
-    echo "WARNING: comfyui-lora-manager not found — must be on network volume"
+    git clone https://github.com/willmiao/ComfyUI-Lora-Manager comfyui-lora-manager && \
+    cd comfyui-lora-manager && pip3 install --no-cache-dir -r requirements.txt || true
 
 RUN pip3 install --no-cache-dir imageio imageio-ffmpeg
 
