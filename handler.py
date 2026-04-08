@@ -327,8 +327,6 @@ def handler(job: dict) -> dict:
     if not wait_for_comfyui(timeout=30):
         return {"error": "ComfyUI not ready after 30s"}
 
-    free_comfy_memory()
-
     # Stitching params
     num_chunks = int(inp.get("num_chunks", 1))
     fps = int(inp.get("fps", 16))
