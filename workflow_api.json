@@ -1,0 +1,573 @@
+{
+  "3": {
+    "inputs": {
+      "shift": 8,
+      "model": [
+        "377",
+        0
+      ]
+    },
+    "class_type": "ModelSamplingSD3",
+    "_meta": {
+      "title": "Выборка модели SD3"
+    }
+  },
+  "4": {
+    "inputs": {
+      "shift": 8,
+      "model": [
+        "378",
+        0
+      ]
+    },
+    "class_type": "ModelSamplingSD3",
+    "_meta": {
+      "title": "Выборка модели SD3"
+    }
+  },
+  "5": {
+    "inputs": {
+      "sage_attention": "auto",
+      "allow_compile": false,
+      "model": [
+        "3",
+        0
+      ]
+    },
+    "class_type": "PathchSageAttentionKJ",
+    "_meta": {
+      "title": "Patch Sage Attention KJ"
+    }
+  },
+  "6": {
+    "inputs": {
+      "sage_attention": "auto",
+      "allow_compile": false,
+      "model": [
+        "4",
+        0
+      ]
+    },
+    "class_type": "PathchSageAttentionKJ",
+    "_meta": {
+      "title": "Patch Sage Attention KJ"
+    }
+  },
+  "15": {
+    "inputs": {
+      "clip_name": "umt5_xxl_fp8_e4m3fn_scaled.safetensors",
+      "type": "wan",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Загрузить CLIP"
+    }
+  },
+  "17": {
+    "inputs": {
+      "image": "710cfad59cfc452caa1f979fd9320c96.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Загрузить изображение"
+    }
+  },
+  "30": {
+    "inputs": {
+      "value": 4
+    },
+    "class_type": "INTConstant",
+    "_meta": {
+      "title": "End And Start Step (steps/2)"
+    }
+  },
+  "33": {
+    "inputs": {
+      "pixels": [
+        "48",
+        0
+      ],
+      "vae": [
+        "381",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "Кодировать VAE"
+    }
+  },
+  "48": {
+    "inputs": {
+      "width": 480,
+      "height": 640,
+      "upscale_method": "lanczos",
+      "keep_proportion": "crop",
+      "pad_color": "0, 0, 0",
+      "crop_position": "center",
+      "divisible_by": 2,
+      "device": "cpu",
+      "image": [
+        "17",
+        0
+      ]
+    },
+    "class_type": "ImageResizeKJv2",
+    "_meta": {
+      "title": "Resize Image v2"
+    }
+  },
+  "69": {
+    "inputs": {
+      "value": 2
+    },
+    "class_type": "PrimitiveFloat",
+    "_meta": {
+      "title": "CFG High Noise"
+    }
+  },
+  "72": {
+    "inputs": {
+      "value": 1
+    },
+    "class_type": "PrimitiveFloat",
+    "_meta": {
+      "title": "CFG Low Noise"
+    }
+  },
+  "77": {
+    "inputs": {
+      "__lm_autocomplete_meta_text": {
+        "version": 1,
+        "textWidgetName": "text"
+      },
+      "text": "Instareal, woman slowly removes bra, pulls straps off shoulders, bra falls away, reveals large natural bare breasts, perky nipples, detailed areolas, realistic skin texture, soft diffused lighting, intimate bedroom, smooth natural movement, eye contact with camera",
+      "clip": [
+        "385",
+        1
+      ],
+      "trigger_words2": [
+        "384",
+        0
+      ]
+    },
+    "class_type": "Prompt (LoraManager)",
+    "_meta": {
+      "title": "Positive"
+    }
+  },
+  "79": {
+    "inputs": {
+      "__lm_autocomplete_meta_text": {
+        "version": 1,
+        "textWidgetName": "text",
+        "lastAccepted": {
+          "start": 24,
+          "end": 47,
+          "insertedText": "<lora:MysticXXX_low:1>,",
+          "textSnapshot": "<lora:Instareal_low:1>, <lora:MysticXXX_low:1>,"
+        }
+      },
+      "text": "<lora:Instareal_low:0.95>, <lora:MysticXXX_low:0.45>",
+      "loras": {
+        "__value__": [
+          {
+            "name": "Instareal_low",
+            "strength": "0.95",
+            "active": true,
+            "expanded": false,
+            "clipStrength": "0.95",
+            "locked": false
+          },
+          {
+            "name": "MysticXXX_low",
+            "strength": "0.45",
+            "active": true,
+            "clipStrength": "0.45",
+            "expanded": false,
+            "locked": false
+          }
+        ]
+      },
+      "model": [
+        "368",
+        0
+      ]
+    },
+    "class_type": "Lora Loader (LoraManager)",
+    "_meta": {
+      "title": "Lora Loader Low Noise 1"
+    }
+  },
+  "81": {
+    "inputs": {
+      "text": "色调艳丽，过曝，静态，细节模糊不清，字幕，风格，作品，画作，画面，静止，整体发灰，最差质量，低质量，JPEG压缩残留，丑陋的，残缺的，多余的手指，画得不好的手部，画得不好的脸部，畸形的，毁容的，形态畸形的肢体，手指融合，静止不动的画面，杂乱的背景，三条腿，背景人很多，倒着走, slow motion, slow, talking, blurry nipples, unrealistic skin, plastic skin, smooth nipples, blurry breasts, wax skin ",
+      "clip": [
+        "385",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Negative"
+    }
+  },
+  "82": {
+    "inputs": {
+      "length": [
+        "95",
+        0
+      ],
+      "motion_latent_count": 1,
+      "positive": [
+        "77",
+        0
+      ],
+      "negative": [
+        "81",
+        0
+      ],
+      "anchor_samples": [
+        "33",
+        0
+      ]
+    },
+    "class_type": "WanImageToVideoSVIPro",
+    "_meta": {
+      "title": "WanImageToVideoSVIPro"
+    }
+  },
+  "84": {
+    "inputs": {
+      "add_noise": "enable",
+      "noise_seed": 1039943181204537,
+      "steps": [
+        "371",
+        0
+      ],
+      "cfg": [
+        "69",
+        0
+      ],
+      "sampler_name": [
+        "371",
+        3
+      ],
+      "scheduler": [
+        "371",
+        4
+      ],
+      "start_at_step": 0,
+      "end_at_step": [
+        "30",
+        0
+      ],
+      "return_with_leftover_noise": "enable",
+      "model": [
+        "385",
+        0
+      ],
+      "positive": [
+        "82",
+        0
+      ],
+      "negative": [
+        "82",
+        1
+      ],
+      "latent_image": [
+        "82",
+        2
+      ]
+    },
+    "class_type": "KSamplerAdvanced",
+    "_meta": {
+      "title": "KSampler (Расширенный)"
+    }
+  },
+  "85": {
+    "inputs": {
+      "add_noise": "disable",
+      "noise_seed": 0,
+      "steps": [
+        "371",
+        0
+      ],
+      "cfg": [
+        "72",
+        0
+      ],
+      "sampler_name": [
+        "371",
+        3
+      ],
+      "scheduler": [
+        "371",
+        4
+      ],
+      "start_at_step": [
+        "30",
+        0
+      ],
+      "end_at_step": 10000,
+      "return_with_leftover_noise": "disable",
+      "model": [
+        "79",
+        0
+      ],
+      "positive": [
+        "82",
+        0
+      ],
+      "negative": [
+        "82",
+        1
+      ],
+      "latent_image": [
+        "84",
+        0
+      ]
+    },
+    "class_type": "KSamplerAdvanced",
+    "_meta": {
+      "title": "KSampler (Расширенный)"
+    }
+  },
+  "86": {
+    "inputs": {
+      "samples": [
+        "85",
+        0
+      ],
+      "vae": [
+        "381",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "Декодировать VAE"
+    }
+  },
+  "95": {
+    "inputs": {
+      "value": 81
+    },
+    "class_type": "INTConstant",
+    "_meta": {
+      "title": "Length (Frames)"
+    }
+  },
+  "102": {
+    "inputs": {
+      "frame_rate": 16,
+      "loop_count": 0,
+      "filename_prefix": "AnimateDiff",
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 19,
+      "save_metadata": true,
+      "trim_to_audio": false,
+      "pingpong": false,
+      "save_output": true,
+      "images": [
+        "86",
+        0
+      ]
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "Video Combine 🎥🅥🅗🅢"
+    }
+  },
+  "357": {
+    "inputs": {
+      "frame_rate": 16,
+      "loop_count": 0,
+      "filename_prefix": "AnimateDiff",
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 19,
+      "save_metadata": true,
+      "trim_to_audio": false,
+      "pingpong": false,
+      "save_output": true,
+      "images": [
+        "86",
+        0
+      ]
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "Video Combine 🎥🅥🅗🅢"
+    }
+  },
+  "365": {
+    "inputs": {
+      "lora_name": "loras/wan2.2/SVI_v2_PRO_Wan2.2-I2V-A14B_HIGH_lora_rank_128_fp16.safetensors",
+      "strength_model": 0.45,
+      "model": [
+        "5",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "Загрузчик LoRA (Только модель)"
+    }
+  },
+  "368": {
+    "inputs": {
+      "lora_name": "loras/wan2.2/SVI_v2_PRO_Wan2.2-I2V-A14B_LOW_lora_rank_128_fp16.safetensors",
+      "strength_model": 0.51,
+      "model": [
+        "6",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "Загрузчик LoRA (Только модель)"
+    }
+  },
+  "371": {
+    "inputs": {
+      "steps_total": 8,
+      "refiner_step": [
+        "372",
+        0
+      ],
+      "cfg": [
+        "372",
+        0
+      ],
+      "sampler_name": "uni_pc",
+      "scheduler": "normal"
+    },
+    "class_type": "KSampler Config (rgthree)",
+    "_meta": {
+      "title": "KSampler Config (rgthree)"
+    }
+  },
+  "372": {
+    "inputs": {},
+    "class_type": "easy showAnything",
+    "_meta": {
+      "title": "Show Any"
+    }
+  },
+  "377": {
+    "inputs": {
+      "unet_name": "wan2.2/SVI2PRO_8step_HIGH.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "Загрузить модель диффузии"
+    }
+  },
+  "378": {
+    "inputs": {
+      "unet_name": "wan2.2/SVI2PRO_8step_LOW.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "Загрузить модель диффузии"
+    }
+  },
+  "379": {
+    "inputs": {
+      "unet_name": "wan2.2/Wan2_2-I2V-A14B-HIGH_consistent_face_Q8.gguf"
+    },
+    "class_type": "UnetLoaderGGUF",
+    "_meta": {
+      "title": "Unet Loader (GGUF)"
+    }
+  },
+  "380": {
+    "inputs": {
+      "unet_name": "wan2.2/Wan2_2-I2V-A14B-HIGH_consistent_face_Q8.gguf"
+    },
+    "class_type": "UnetLoaderGGUF",
+    "_meta": {
+      "title": "Unet Loader (GGUF)"
+    }
+  },
+  "381": {
+    "inputs": {
+      "vae_name": "wan_2.1_vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Загрузить VAE"
+    }
+  },
+  "384": {
+    "inputs": {
+      "group_mode": true,
+      "default_active": true,
+      "allow_strength_adjustment": false,
+      "toggle_trigger_words": {
+        "__value__": []
+      },
+      "orinalMessage": "",
+      "trigger_words": [
+        "385",
+        2
+      ]
+    },
+    "class_type": "TriggerWord Toggle (LoraManager)",
+    "_meta": {
+      "title": "TriggerWord Toggle (LoraManager)"
+    }
+  },
+  "385": {
+    "inputs": {
+      "__lm_autocomplete_meta_text": {
+        "version": 1,
+        "textWidgetName": "text",
+        "lastAccepted": {
+          "start": 24,
+          "end": 45,
+          "insertedText": "<lora:detailz_wan:1>,",
+          "textSnapshot": "<lora:Instareal_high:1>,<lora:detailz_wan:1>,"
+        }
+      },
+      "text": "<lora:Instareal_high:0.90>, <lora:detailz_wan:0.90>",
+      "loras": {
+        "__value__": [
+          {
+            "name": "Instareal_high",
+            "strength": "0.90",
+            "active": true,
+            "expanded": false,
+            "clipStrength": "0.90",
+            "locked": false
+          },
+          {
+            "name": "detailz_wan",
+            "strength": "0.90",
+            "active": true,
+            "clipStrength": "0.90",
+            "expanded": false,
+            "locked": false
+          }
+        ]
+      },
+      "model": [
+        "365",
+        0
+      ],
+      "clip": [
+        "15",
+        0
+      ]
+    },
+    "class_type": "Lora Loader (LoraManager)",
+    "_meta": {
+      "title": "Lora Loader High Noise 1"
+    }
+  }
+}
