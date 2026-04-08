@@ -32,16 +32,20 @@ RUN cd /comfyui && pip3 install --no-cache-dir -r requirements.txt
 RUN cd /comfyui/custom_nodes && \
     git clone https://github.com/kijai/ComfyUI-KJNodes && \
     git clone https://github.com/rgthree/rgthree-comfy && \
-    git clone https://github.com/ashtar1984/comfyui-find-perfect-resolution && \
     git clone https://github.com/city96/ComfyUI-GGUF && \
     git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite && \
-    git clone https://github.com/Fannovel16/ComfyUI-Frame-Interpolation && \
-    git clone https://github.com/willchil/comfyui-lora-manager
+    git clone https://github.com/Fannovel16/ComfyUI-Frame-Interpolation
 
 RUN cd /comfyui/custom_nodes/ComfyUI-KJNodes && \
     pip3 install --no-cache-dir -r requirements.txt || true
-RUN cd /comfyui/custom_nodes/comfyui-lora-manager && \
-    pip3 install --no-cache-dir -r requirements.txt || true
+
+# comfyui-lora-manager — provides Lora Loader (LoraManager) / TriggerWord Toggle nodes
+# Installed from volume symlink at runtime if not present (see start.sh)
+RUN cd /comfyui/custom_nodes && \
+    git clone https://github.com/badjeff/comfyui-lora-manager || \
+    git clone https://github.com/LyazS/comfyui-lora-manager || \
+    echo "WARNING: comfyui-lora-manager not found — must be on network volume"
+
 RUN pip3 install --no-cache-dir imageio imageio-ffmpeg
 
 # ── Workspace dirs ────────────────────────────────────────────────────────────

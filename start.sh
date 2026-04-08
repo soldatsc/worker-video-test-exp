@@ -22,6 +22,19 @@ else
     ls -la "$VOLUME/" 2>/dev/null || echo "Volume not mounted!"
 fi
 
+# ── Link custom nodes from volume (e.g. comfyui-lora-manager) ────────────────
+VOLUME_NODES="$VOLUME/ComfyUI/custom_nodes"
+if [ -d "$VOLUME_NODES" ]; then
+    for node_dir in "$VOLUME_NODES"/*/; do
+        node_name=$(basename "$node_dir")
+        target="/comfyui/custom_nodes/$node_name"
+        if [ ! -e "$target" ]; then
+            ln -sf "$node_dir" "$target"
+            echo "  linked custom node: $node_name"
+        fi
+    done
+fi
+
 # ── Workflow overrides from volume (swap workflow without rebuilding) ─────────
 # Place any <name>.json in /runpod-volume/workflows/ and pass workflow_name=<name>
 if [ -d "$VOLUME/workflows" ]; then
