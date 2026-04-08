@@ -75,6 +75,7 @@ python3 main.py \
     --port 8188 \
     $EXTRA_ARGS \
     --disable-cuda-malloc \
+    --gpu-only \
     &
 COMFY_PID=$!
 
@@ -100,7 +101,7 @@ done
         if ! kill -0 $COMFY_PID 2>/dev/null; then
             echo "WARNING: ComfyUI died (pid $COMFY_PID) — restarting..."
             cd /comfyui
-            python3 main.py --listen 127.0.0.1 --port 8188 $EXTRA_ARGS --disable-cuda-malloc &
+            python3 main.py --listen 127.0.0.1 --port 8188 $EXTRA_ARGS --disable-cuda-malloc --gpu-only &
             COMFY_PID=$!
             sleep 30  # give it time to reload models
         fi
