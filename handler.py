@@ -45,6 +45,9 @@ NODE_LORA_LOW = "79"               # Lora Loader (LoraManager) — LOW path
 NODE_SVI_LORA_HIGH = "365"         # LoraLoaderModelOnly — SVI PRO HIGH strength
 NODE_SVI_LORA_LOW = "368"          # LoraLoaderModelOnly — SVI PRO LOW strength
 NODE_VIDEO_COMBINE = "102"         # VHS_VideoCombine
+NODE_SAMPLING_SD3_HIGH = "3"       # ModelSamplingSD3 — HIGH noise shift
+NODE_SAMPLING_SD3_LOW = "4"        # ModelSamplingSD3 — LOW noise shift
+NODE_SVI_PRO = "82"                # WanImageToVideoSVIPro — motion_latent_count
 
 
 # ---------- Helpers ----------
@@ -287,6 +290,15 @@ def patch_workflow(workflow: dict, image_filename: str, params: dict) -> dict:
     if "svi_strength_low" in params:
         wf[NODE_SVI_LORA_LOW]["inputs"]["strength_model"] = float(params["svi_strength_low"])
 
+    # Shift (ModelSamplingSD3) — controls motion aggressiveness from first frame
+    if "shift" in params:
+        wf[NODE_SAMPLING_SD3_HIGH]["inputs"]["shift"] = float(params["shift"])
+        wf[NODE_SAMPLING_SD3_LOW]["inputs"]["shift"] = float(params["shift"])
+
+    # Motion latent count (WanImageToVideoSVIPro)
+    if "motion_latent_count" in params:
+        wf[NODE_SVI_PRO]["inputs"]["motion_latent_count"] = int(params["motion_latent_count"])
+
     # Action LoRAs (comfyui-lora-manager format)
     if "loras_high" in params and params["loras_high"]:
         wf[NODE_LORA_HIGH]["inputs"]["loras"] = build_lora_manager_value(params["loras_high"])
@@ -342,6 +354,7 @@ def handler(job: dict) -> dict:
         "sampler_name", "scheduler",
         "checkpoint_high", "checkpoint_low",
         "svi_strength_high", "svi_strength_low",
+        "shift", "motion_latent_count",
         "loras_high", "loras_low",
     ):
         if key in inp:
